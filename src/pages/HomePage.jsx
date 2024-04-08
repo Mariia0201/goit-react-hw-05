@@ -21,7 +21,7 @@ const HomePage = () => {
       };
       try {
         const response = await axios.get(url, params);
-        //   return response.data.results;
+        
         setTrendingMovies(response.data.results);
         setLoading(false);
       } catch (error) {

@@ -15,7 +15,7 @@ const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState(null);
 
   useEffect(() => {
-    // console.log("movieId:", movieId);
+    
     const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-U`;
 
     const fetchMovieDetails = async () => {

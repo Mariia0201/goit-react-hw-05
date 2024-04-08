@@ -4,7 +4,7 @@ import axios from "axios";
 const API_KEY = "361693f4a852f8a277166f7371377e89";
 
 const MovieReviews = ({ movieId }) => {
-    // console.log("movieId in MovieReviews:", movieId);
+   
   const [reviews, setReviews] = useState([]);
 
     useEffect(() => {

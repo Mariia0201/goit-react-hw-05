@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 
 import Loader from "../components/Loader";
 import MovieList from "../components/MovieList";
-// import { requestTrendingMovies } from "../services/api";
+
 import toast, { Toaster } from "react-hot-toast";
 import css from "../pages/MoviesPage.module.css";
 import axios from "axios";

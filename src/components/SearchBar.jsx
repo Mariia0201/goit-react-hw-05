@@ -3,7 +3,7 @@ import css from "./SearchBar.module.css";
 
 const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (values, actions) => {
-    const formattedSearch = values.query.trim().toLowerCase(); // змінено з 'values.search' на 'values.query'
+    const formattedSearch = values.query.trim().toLowerCase(); 
     onSubmit(formattedSearch);
     actions.resetForm();
   };
@@ -12,7 +12,7 @@ const SearchBar = ({ onSubmit }) => {
     <header>
       <Formik
         initialValues={{ query: "" }}
-        onSubmit={handleSubmit} // використання функції handleSubmit
+        onSubmit={handleSubmit} 
       >
         <Form className={css.formSearch}>
           <Field
