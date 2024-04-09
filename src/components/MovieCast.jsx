@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 
-const API_KEY = "361693f4a852f8a277166f7371377e89";
+const API_KEY = "a6ebdcd8c057c3fba2fa1a2f994aa2bb";
 
 const MovieCast = ({ movieId }) => {
     
