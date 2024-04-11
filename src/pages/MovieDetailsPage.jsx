@@ -1,5 +1,5 @@
-import { Suspense, lazy, useEffect, useState } from "react";
-import { useParams, Routes, Route, Link } from "react-router-dom";
+import { Suspense, lazy, useEffect, useState, useRef } from "react";
+import { useParams, Routes, Route, Link, useLocation } from "react-router-dom";
 import axios from "axios";
 const MovieCast = lazy(() => import("../components/MovieCast"));
 const MovieReviews = lazy(() => import("../components/MovieReviews"));
@@ -13,6 +13,12 @@ const API_KEY = "361693f4a852f8a277166f7371377e89";
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
+  const prevLocation = useRef();
+  const location = useLocation();
+
+  useEffect(() => {
+    prevLocation.current = location.pathname;
+  }, [location.pathname]);
 
   useEffect(() => {
     
