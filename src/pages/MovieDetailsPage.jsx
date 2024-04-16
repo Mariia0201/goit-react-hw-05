@@ -1,5 +1,5 @@
 import { Suspense, lazy, useEffect, useState, useRef } from "react";
-import { useParams, Routes, Route, Link, useLocation } from "react-router-dom";
+import { useParams, Routes, Route, Link, useLocation, useHistory } from "react-router-dom";
 import axios from "axios";
 const MovieCast = lazy(() => import("../components/MovieCast"));
 const MovieReviews = lazy(() => import("../components/MovieReviews"));
@@ -15,6 +15,7 @@ const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState(null);
   const prevLocation = useRef();
   const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     prevLocation.current = location.pathname;
@@ -36,6 +37,10 @@ const MovieDetailsPage = () => {
     fetchMovieDetails();
   }, [movieId]);
 
+  const handleGoBack = () => {
+    history.push(prevLocation.current);
+  };
+
   if (!movieDetails) {
     return <div>Loading...</div>;
   }
@@ -44,7 +49,7 @@ const MovieDetailsPage = () => {
 
   return (
     <div>
-      <Link to="/">Go Back</Link>
+      <button onClick={handleGoBack}>Go Back</button>
       <h1>{title}</h1>
       <img
         src={
