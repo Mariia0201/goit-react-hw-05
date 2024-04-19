@@ -1,6 +1,7 @@
 import { Suspense, lazy, useEffect, useState, useRef } from "react";
-import { useParams, Routes, Route, Link, useLocation, useHistory } from "react-router-dom";
+import { useParams, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 const MovieCast = lazy(() => import("../components/MovieCast"));
 const MovieReviews = lazy(() => import("../components/MovieReviews"));
 import Loader from "../components/Loader";
@@ -13,16 +14,16 @@ const API_KEY = "361693f4a852f8a277166f7371377e89";
 const MovieDetailsPage = () => {
   const { movieId } = useParams();
   const [movieDetails, setMovieDetails] = useState(null);
-  const prevLocation = useRef();
+  
+  const navigate = useNavigate();
   const location = useLocation();
-  const history = useHistory();
+  const prevLocation = useRef(location.state ? location.state.from : null);
 
   useEffect(() => {
-    prevLocation.current = location.pathname;
-  }, [location.pathname]);
+    prevLocation.current = location.state ? location.state.from : null;
+  }, [location.state]);
 
   useEffect(() => {
-    
     const url = `https://api.themoviedb.org/3/movie/${movieId}?api_key=${API_KEY}&language=en-U`;
 
     const fetchMovieDetails = async () => {
@@ -38,7 +39,12 @@ const MovieDetailsPage = () => {
   }, [movieId]);
 
   const handleGoBack = () => {
-    history.push(prevLocation.current);
+    
+    if (prevLocation.current) {
+        navigate(prevLocation.current, { state: location.state });
+    } else {
+        navigate("/");
+    }
   };
 
   if (!movieDetails) {
@@ -52,11 +58,7 @@ const MovieDetailsPage = () => {
       <button onClick={handleGoBack}>Go Back</button>
       <h1>{title}</h1>
       <img
-        src={
-          poster_path
-            ? `https://image.tmdb.org/t/p/w500/${poster_path}`
-            : defaultImg
-        }
+        src={poster_path ? `https://image.tmdb.org/t/p/w500/${poster_path}` : defaultImg}
         width={250}
         alt="poster"
       />
